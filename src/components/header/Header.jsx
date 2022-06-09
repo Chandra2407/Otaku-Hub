@@ -12,13 +12,15 @@ const Header = ({setIsAuth}) => {
       localStorage.clear();
       setIsAuth(false)
     })
+    .catch((err)=>{
+      console.log(err.message)
+    })
   }
   return (
     <div className='header'>
-            <h2>Otaku-Hub</h2>
+            <h3>Otaku-Hub</h3>
             <div className="header-right">
               {!localStorage.getItem('isAuth')?<Link to='/login' className='login'>Login</Link>:<><button className='logout' onClick={logout}>logout</button><a href='#' className='logout'>{localStorage.getItem('username')}</a></>}
-              
             </div>
 
             

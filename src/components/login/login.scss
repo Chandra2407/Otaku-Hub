@@ -1,6 +1,28 @@
+.login-btns{
+    width:80%;
+    padding:6px; 
+}
 #signin{
     background-color: rgb(23, 160, 23);
 }
 #signincancel{
     background-color: rgb(228, 50, 50);
+}
+.login-form{
+    input{
+        padding: 10px;
+        width: 80%;
+        border-radius: 8px;
+        outline: none;
+        border: 1px solid black;
+    }
+    .error{
+        font-size: 14px;
+        color: rgb(228, 50, 50);
+    }
+}
+.already{
+    padding: 0 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
 }

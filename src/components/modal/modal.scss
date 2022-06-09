@@ -11,26 +11,27 @@
     z-index: 10;
     .modal-pop{
         width: 400px;
-        height: 450px;
         background-color: white;
         opacity: 1;
         border-radius: 10px;
-        overflow: hidden;
+        overflow: scroll;
+        text-align: center;
         form{
             display: flex;
             flex-direction: column;
             justify-content: center;
             gap: 15px;
             align-items: center;
-            height: 100%;
             padding: 0 10px;
+            padding-top: 40px;
+            padding-bottom: 20px;
             label{
                 cursor: pointer;
                 border: 1px solid black;
                 padding: 8px;
                 border-radius: 10px;
                 &:hover{
-                    border: 2px solid rgb(184, 84, 84);
+                    background-color: azure;
                 }
                 input{
                     opacity: 0;
@@ -42,6 +43,14 @@
                 padding: 10px;
                 font-size:18px;
                 border-radius: 10px;
+                width: 80%;
+            }
+            input[type=text]{
+                padding: 10px;
+                width: 80%;
+                border-radius: 8px;
+                outline: none;
+                border: 1px solid black;
             }
             .output{
                 .error{
@@ -50,7 +59,15 @@
             }
             .buttons{
                 display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 gap: 10px;
+                width: 100%;
+                button{
+                    width: 80%;
+                    padding: 8px;
+                }
                 button:nth-child(2){
                     background-color: red;
                 }
