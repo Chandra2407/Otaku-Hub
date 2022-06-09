@@ -1,0 +1,27 @@
+@import '../../styles/var.scss';
+
+.header {
+  background-color: #111827;
+  padding: 10px;
+  color: $clr-text-light;
+  opacity: 0.8;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .login {
+    color: $clr-text-light;
+    font-weight: 700;
+  }
+
+  .logout {
+    font-weight: 700;
+    font-size: 11px;  
+    margin: 0 4px;
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,55 @@
+@import '../../styles/var.scss';
+
+.img-container{
+    margin-top: 30px;
+    width: 40%;
+    .img-cont{
+        background-color: #0e1013;
+        color: $clr-text-light;
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        margin: 20px 0;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        border: 1px solid black;
+        .img{
+            overflow: hidden;
+            img{
+                transition: all 0.8s ease;
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+
+        }
+        .quote{
+            padding: 8px;
+            text-align: center;
+        }
+        .user-name{
+            padding: 1px 20px;
+            font-weight: 700;
+            background-color: #0e1013;
+        }
+    }
+
+}
+
+@media screen and (max-width:1024px){
+    .img-container{
+        width: 70%;
+    }
+  }
+  
+  @media screen and (max-width:600px){
+    .img-container{
+        width: 90%;
+        .img-cont{
+            .quote{
+                font-size: 12px;
+            }
+        }
+    }
+   
+  }
+  
