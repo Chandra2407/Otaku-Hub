@@ -2,14 +2,20 @@
 import React,{useState,useContext} from 'react'
 import { modalContext } from '../../App'
 import './addbutton.scss'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
-const AddButtons = () => {
+const AddButtons = ({isAuth}) => {
   const [active, setActive] = useState('#')
   const modal = useContext(modalContext)
+  const navigate = useNavigate();
 
   const handleClick =()=>{
-    modal.setShowModal(true)
+    if(isAuth){
+      modal.setShowModal(true)
+    }
+    else{
+      navigate('/login')
+    }
   }
 
   return (

@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import './header.scss';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import {signOut} from 'firebase/auth'
 import { auth } from '../../firebase/config';
 
 const Header = ({setIsAuth}) => {
-
+  const navigate = useNavigate();
   const logout = ()=>{
     signOut(auth).then(()=>{
       localStorage.clear();
       setIsAuth(false)
+      navigate('/')
     })
     .catch((err)=>{
       console.log(err.message)

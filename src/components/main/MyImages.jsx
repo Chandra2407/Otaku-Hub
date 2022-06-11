@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect} from 'react'
 import './images.scss'
-import {collection, getDocs, orderBy, query} from 'firebase/firestore'
+import {collection, getDocs, orderBy, query, where} from 'firebase/firestore'
 import { db } from '../../firebase/config'
 import Image from './Image'
 
-
-const Images = () => {
+const MyImages = ({isAuth}) => {
     const [quoteList,setQouteList] = useState([]);
-    const quotesCollectionRef = collection(db,'quotes');
-    const q = query(quotesCollectionRef,orderBy('createdAt','desc'))
+
+    const q = query(collection(db,"quotes"),orderBy('createdAt','desc'),where("user.id","==",localStorage.getItem('uid')))
 
     useEffect(()=>{
         const getPosts = async()=>{
@@ -20,16 +19,14 @@ const Images = () => {
         };
         getPosts();
     },[])
-
-    return (
-        <div className='container img-container'>
-        {quoteList.map(quote=> {
-            return <Image key={quote.id} quote={quote} />
-        })
-            
-        }
-        </div>
-    )
+  return (
+    <div className='container img-container'>
+    {isAuth ? quoteList.map(quote=> {
+        return <Image key={quote.id} quote={quote} />
+    }): <h5 style={{textAlign:"center"}}>Login to see your quotes</h5> 
+    }
+    </div>
+  )
 }
 
-export default Images
+export default MyImages

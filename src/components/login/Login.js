@@ -10,21 +10,27 @@ const Login = ({setIsAuth}) => {
     const [password,setPassowrd] = useState('')
     const [error,setError] = useState(false)
     let navigate = useNavigate()
+    
+    const setUser =async(result)=>{
+      await localStorage.setItem('isAuth',true)
+      await localStorage.setItem('uid',result.user.uid)
+      await setIsAuth(true)
+      if(result.user.displayName){
+        localStorage.setItem('username',result.user.displayName)
+      }
+      else{
+        let username = result.user.email.substring(0,result.user.email.indexOf('@'))
+        localStorage.setItem('username',username)
+      }
+      if(localStorage.getItem('isAuth')) navigate('/')
+      setError(false)
+    }
 
     const handleClick = (e)=>{
         e.preventDefault()
         signInWithPopup(auth,provider).then(async(result)=>{
-            await localStorage.setItem('isAuth',true)
-            await setIsAuth(true)
-            if(result.user.displayName){
-              localStorage.setItem('username',result.user.displayName)
-            }
-            else{
-              let username = result.user.email.substring(0,result.user.email.indexOf('@'))
-              localStorage.setItem('username',username)
-            }
-            if(localStorage.getItem('isAuth')) navigate('/')
-            setError(false)
+           setUser(result);
+
         }).catch(error=>{
           console.log(error)
           setError(true)
@@ -39,17 +45,7 @@ const Login = ({setIsAuth}) => {
       if(signUp){
         createUserWithEmailAndPassword(auth,email,password)
         .then(async(result)=>{
-          await localStorage.setItem('isAuth',true)
-          await setIsAuth(true)
-          if(result.user.displayName){
-            localStorage.setItem('username',result.user.displayName)
-          }
-          else{
-            let username = result.user.email.substring(0,result.user.email.indexOf('@'))
-            localStorage.setItem('username',username)
-          }
-          if(localStorage.getItem('isAuth')) navigate('/')
-          setError(false)
+         setUser(result)
         })
         .catch((err)=>{
           console.log(err.message)
@@ -60,17 +56,7 @@ const Login = ({setIsAuth}) => {
       else{
         signInWithEmailAndPassword(auth,email,password)
         .then(async(result)=>{
-          await localStorage.setItem('isAuth',true)
-          await setIsAuth(true)
-          if(result.user.displayName){
-            localStorage.setItem('username',result.user.displayName)
-          }
-          else{
-            let username = result.user.email.substring(0,result.user.email.indexOf('@'))
-            localStorage.setItem('username',username)
-          }
-          if(localStorage.getItem('isAuth')) navigate('/')
-          setError(false)
+          setUser(result)
         })
         .catch(err=>{
           console.log(err.message)
@@ -92,7 +78,6 @@ const Login = ({setIsAuth}) => {
           <p className='error'>{error?'invalid email or password':''}</p>
           <button type='submit' className='btn login-btns'>{!signUp?'Sign in':'Sign up'}</button>
           <p>Or</p>
-          <p>Sign in with Google to continue</p>
           <button className='btn login-btns' id='signin' onClick={handleClick}>Sign in with Google</button>
           <button className='btn login-btns' id='signincancel' onClick={handleCancel}>Cancel</button>
       </form>
