@@ -28,17 +28,15 @@ const Login = ({setIsAuth}) => {
       setError(false)
     }
 
-    const handleClick = async(e)=>{
+    const handleClick = (e)=>{
         e.preventDefault()
-        await setSpinner(false)
-        await signInWithPopup(auth,provider).then(async(result)=>{
+        signInWithPopup(auth,provider).then(async(result)=>{
            setUser(result);
 
         }).catch(error=>{
           console.log(error)
           setError(true)
         })
-        setSpinner(true)
   } 
   // const redirect = ()=>{
   //   signInWithRedirect(auth,provider)
