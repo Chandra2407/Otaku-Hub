@@ -30,7 +30,7 @@ const Login = ({setIsAuth}) => {
 
     const handleClick = (e)=>{
         e.preventDefault()
-        signInWithPopup(auth,provider).then(async(result)=>{
+        signInWithPopup(auth,provider).then((result)=>{
            setUser(result);
 
         }).catch(error=>{
