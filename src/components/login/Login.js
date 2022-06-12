@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, provider } from '../../firebase/config'
 import {signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
 import './login.scss'
+import { spinContext } from '../../App'
 
 const Login = ({setIsAuth}) => {
     const[signUp,setSignUp] = useState(false)
@@ -10,6 +11,7 @@ const Login = ({setIsAuth}) => {
     const [password,setPassowrd] = useState('')
     const [error,setError] = useState(false)
     let navigate = useNavigate()
+    const setSpinner = useContext(spinContext)
     
     const setUser =async(result)=>{
       await localStorage.setItem('isAuth',true)
@@ -26,24 +28,27 @@ const Login = ({setIsAuth}) => {
       setError(false)
     }
 
-    const handleClick = (e)=>{
+    const handleClick = async(e)=>{
         e.preventDefault()
-        signInWithPopup(auth,provider).then(async(result)=>{
+        await setSpinner(false)
+        await signInWithPopup(auth,provider).then(async(result)=>{
            setUser(result);
 
         }).catch(error=>{
           console.log(error)
           setError(true)
         })
+        setSpinner(true)
   } 
   // const redirect = ()=>{
   //   signInWithRedirect(auth,provider)
   // }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async(e)=>{
       e.preventDefault()
+      await setSpinner(true)
       if(signUp){
-        createUserWithEmailAndPassword(auth,email,password)
+       await createUserWithEmailAndPassword(auth,email,password)
         .then(async(result)=>{
          setUser(result)
         })
@@ -54,7 +59,7 @@ const Login = ({setIsAuth}) => {
         
       }
       else{
-        signInWithEmailAndPassword(auth,email,password)
+       await signInWithEmailAndPassword(auth,email,password)
         .then(async(result)=>{
           setUser(result)
         })
@@ -63,6 +68,7 @@ const Login = ({setIsAuth}) => {
           setError(true)
         })
       }
+      await setSpinner(false)
       setEmail('')
       setPassowrd('')
   }

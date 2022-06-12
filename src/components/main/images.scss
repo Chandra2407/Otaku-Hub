@@ -27,10 +27,20 @@
             text-align: center;
         }
         .user-name{
-            padding: 1px 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 1px 10px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 14px;
             background-color: #0e1013;
+            align-items: center;
+            button{
+                background: none;
+                color: white;
+                cursor: pointer;
+                font-size: 20px;
+                border: none;
+            }
         }
     }
 

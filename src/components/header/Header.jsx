@@ -1,14 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React,{useContext} from 'react';
 import './header.scss';
 import { Link,useNavigate } from 'react-router-dom';
 import {signOut} from 'firebase/auth'
 import { auth } from '../../firebase/config';
+import { spinContext } from '../../App'
 
 const Header = ({setIsAuth}) => {
+  const setSpinner = useContext(spinContext)
   const navigate = useNavigate();
-  const logout = ()=>{
-    signOut(auth).then(()=>{
+
+  const logout = async()=>{
+    await setSpinner(true)
+    await signOut(auth).then(()=>{
       localStorage.clear();
       setIsAuth(false)
       navigate('/')
@@ -16,6 +20,7 @@ const Header = ({setIsAuth}) => {
     .catch((err)=>{
       console.log(err.message)
     })
+    await setSpinner(false)
   }
   return (
     <div className='header'>

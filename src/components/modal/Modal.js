@@ -4,11 +4,13 @@ import {addDoc, collection} from 'firebase/firestore';
 import { db,timestamp,storage } from '../../firebase/config';
 import './modal.scss';
 import {getDownloadURL, ref,uploadBytesResumable} from 'firebase/storage';
+import { spinContext } from '../../App'
 
 
 const Modal = ({isAuth}) => {
     const types = ['image/png', 'image/jpg', 'image/jpeg'];
     const modal = useContext(modalContext);
+    const setSpinner = useContext(spinContext)
 
     const [error, setError] = useState(null);
     const [file, setFile] = useState(null);
@@ -69,12 +71,14 @@ const Modal = ({isAuth}) => {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
         if(!error && isAuth)
-        {
-            createQuote()
-            modal.setShowModal(false)
+        {   
+            await setSpinner(true)
+            await createQuote()
+            await setSpinner(false)
+            await modal.setShowModal(false)
         }
     }
     return (
