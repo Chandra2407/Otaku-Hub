@@ -59,7 +59,9 @@ const Modal = ({isAuth}) => {
                 user:{
                     name:localStorage.getItem('username'),
                     id:localStorage.getItem('uid')
-                }
+                },
+                likes:[],
+                comments:[]
             });
         }
         catch(error){
